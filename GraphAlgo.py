@@ -1,1 +1,1 @@
-class GraphAlgo
+class GraphAlgo:
