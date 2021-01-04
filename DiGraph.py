@@ -111,4 +111,4 @@ class DiGraph(GraphInterface):
             return True
         else:
             return False
->>>>>>> 74d4dfc6908ea9d84195a0f43d81c470ab409067
+

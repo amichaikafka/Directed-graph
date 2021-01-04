@@ -1,5 +1,6 @@
 from Point3D import Point3D
-import  math
+import math
+
 
 class node_data:
 
@@ -18,10 +19,15 @@ class node_data:
         return f"id:{self.__id},pos:{self.__pos}"
 
     def __eq__(self, o: object) -> bool:
-        return super().__eq__(o)
+        if not (isinstance(o, node_data)):
+            return False
+        return self.__id == o.__id
 
     def __lt__(self, other):
         return self.__weight < other.__weight
+
+    def __hash__(self) -> int:
+        return self.__id
 
     def getkey(self) -> int:
         return self.__id
