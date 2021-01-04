@@ -1,1 +1,2 @@
-class DiGraph:
+import GraphInterface as graph
+class DiGraph(graph):
