@@ -29,7 +29,7 @@ class GraphAlgo(GraphAlgoInterface):
         p = {}
         heapify()
         heappush(src)
-        while(he)
+
 
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
