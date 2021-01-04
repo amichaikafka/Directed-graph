@@ -1,10 +1,15 @@
+from Point3D import Point3D
+
+
 class node_data:
 
-    def __init__(self, id: int, **kwargs) -> None:
+    def __init__(self, id: int, p: tuple = None, **kwargs) -> None:
         self.__id = id
         self.__tag = 0
         self.__weight = 0
         self.__info = ""
+        self.__pos = p
+        self.neighbors = {}
 
     def __str__(self) -> str:
         return str(self.__id)
@@ -35,3 +40,16 @@ class node_data:
 
     def setinfo(self, info: str) -> None:
         self.__info = info
+
+    def getlocation(self) -> tuple:
+        return self.__pos
+
+    def getneighbors(self) -> dict:
+        return self.neighbors
+
+    def isneighbor(self, node_id: int) -> bool:
+        return self.neighbors.__contains__(node_id)
+
+    def addneighbor(self, node_id: int, w: float) -> None:
+        if node_id not in self.neighbors:
+            self.neighbors[node_id] = w
