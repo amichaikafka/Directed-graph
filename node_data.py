@@ -1,24 +1,27 @@
 from Point3D import Point3D
-
+import  math
 
 class node_data:
 
     def __init__(self, id: int, p: tuple = None, **kwargs) -> None:
         self.__id = id
         self.__tag = 0
-        self.__weight = 0
+        self.__weight = math.inf
         self.__info = ""
         self.__pos = p
         self.neighbors = {}
 
     def __str__(self) -> str:
-        return str(self.__id)
+        return f"id:{self.__id},pos:{self.__pos}"
 
     def __repr__(self) -> str:
-        return str(self.__id)
+        return f"id:{self.__id},pos:{self.__pos}"
 
     def __eq__(self, o: object) -> bool:
         return super().__eq__(o)
+
+    def __lt__(self, other):
+        return self.__weight < other.__weight
 
     def getkey(self) -> int:
         return self.__id

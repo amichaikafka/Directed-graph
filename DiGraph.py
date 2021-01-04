@@ -45,6 +45,9 @@ class DiGraph(GraphInterface):
         s += "}"
         return s
 
+    def getnode(self, id: int) -> node_data:
+        return self.Nodes[id]
+
     def e_size(self) -> int:
         return self.edgesize
 
