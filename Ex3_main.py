@@ -3,6 +3,8 @@ from queue import PriorityQueue
 from DiGraph import DiGraph
 # from GraphAlgo import GraphAlgo
 from GraphAlgo import GraphAlgo
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 def check():

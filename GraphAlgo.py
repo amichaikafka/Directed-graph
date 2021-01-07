@@ -1,5 +1,10 @@
 from heapq import *
 from typing import List
+import random
+
+import networkx as nx
+import pylab
+
 from node_data import node_data
 from GraphInterface import GraphInterface
 from GraphAlgoInterface import GraphAlgoInterface
@@ -8,6 +13,8 @@ from typing import Deque
 import queue
 from queue import PriorityQueue
 import math
+import matplotlib.pyplot as plt
+import numpy as np
 
 
 class GraphAlgo(GraphAlgoInterface):
@@ -79,4 +86,30 @@ class GraphAlgo(GraphAlgoInterface):
         pass
 
     def plot_graph(self) -> None:
-        pass
+        for i in self.g.get_all_v().values():
+            x=y=0
+            if i.getlocation() is None:
+                x = random.uniform(0.0, 50)
+                y = random.uniform(0.0, 50)
+                pos=(x,y,0)
+                i.setlocation(pos)
+
+            x,y,z=i.getlocation()
+            plt.plot(x, y, markersize=10, marker='.', color='blue')
+            plt.text(x, y, str(i.getkey()), color="red", fontsize=12)
+            for e in self.g.all_out_edges_of_node(i.getkey()).keys():
+                n=self.g.getnode(e)
+                if n.getlocation() is None:
+                    v = random.uniform(0.0, 50)
+                    w = random.uniform(0.0, 50)
+                    pos = (v, w, 0)
+                    n.setlocation(pos)
+
+                v, w, z = n.getlocation()
+                plt.annotate("", xy=(x, y), xytext=(v, w), arrowprops=dict(arrowstyle="<-"))
+
+        plt.show()
+
+
+
+

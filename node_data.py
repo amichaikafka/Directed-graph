@@ -53,6 +53,9 @@ class node_data:
     def getlocation(self) -> tuple:
         return self.__pos
 
+    def setlocation(self, pos) -> None:
+        self.__pos = pos
+
     def getneighbors(self) -> dict:
         return self.neighbors
 
