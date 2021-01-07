@@ -77,28 +77,91 @@ class GraphAlgo(GraphAlgoInterface):
                 n = p[n].getkey()
                 path.insert(0, n)
             return (dest.getweight(), path)
-        return (float('inf'), [])
+        return (float('inf'), None)
+
+    def dfs(self, n: node_data, stack: list, visited: dict) -> None:
+        visited[n.getkey()] = True
+        for i in self.g.all_out_edges_of_node(n.getkey()).keys():
+            nei = self.g.getnode(i)
+            if not visited[nei.getkey()]:
+                self.dfs(n=nei, stack=stack, visited=visited)
+        stack.append(n)
+
+    def scc(self, n: node_data, cc: list, visited: dict) -> None:
+        visited[n.getkey()] = True
+        cc.append(n.getkey())
+        for i in self.g.all_out_edges_of_node(n.getkey()).keys():
+            nei = self.g.getnode(i)
+            if not visited[nei.getkey()]:
+                self.scc(n=nei, cc=cc, visited=visited)
+
+    def transpose(self) -> None:
+        graph = DiGraph()
+        for i in self.g.get_all_v().keys():
+            node = self.g.getnode(i)
+            graph.add_node(i, node.getlocation())
+        for i in self.g.get_all_v().keys():
+            for n, w in self.g.all_out_edges_of_node(i).items():
+                graph.add_edge(n, i, w)
+        self.g = graph
 
     def connected_component(self, id1: int) -> list:
-        pass
+        visited = {}
+        for i in self.g.get_all_v().keys():
+            visited[i] = False
+        stack = []
+        cc = []
+        idnode = self.g.getnode(id1)
+        self.dfs(idnode, stack, visited)
+        for i in self.g.get_all_v().keys():
+            visited[i] = False
+        self.transpose()
+        while stack:
+            n = stack.pop()
+            if n.getkey() == id1:
+                self.scc(n, cc, visited)
+                self.transpose()
+                return cc
 
     def connected_components(self) -> List[list]:
-        pass
+        stack = []
+        cc = []
+        ans = []
+        visited = {}
+        for i in self.g.get_all_v().keys():
+            visited[i] = False
+        for i in self.g.get_all_v().keys():
+            i = self.g.getnode(i)
+            if not visited[i.getkey()]:
+                self.dfs(i, stack, visited)
+        for i in self.g.get_all_v().keys():
+            visited[i] = False
+        self.transpose()
+
+        while stack:
+            n = stack.pop()
+            if not visited[n.getkey()]:
+                self.scc(n, cc, visited)
+                ans.append(cc.copy())
+            # print(ans)
+            cc.clear()
+        self.transpose()
+        return ans
 
     def plot_graph(self) -> None:
         for i in self.g.get_all_v().values():
-            x=y=0
+            x = y = 0
             if i.getlocation() is None:
                 x = random.uniform(0.0, 50)
                 y = random.uniform(0.0, 50)
-                pos=(x,y,0)
+                pos = (x, y, 0)
                 i.setlocation(pos)
 
-            x,y,z=i.getlocation()
+            x, y, z = i.getlocation()
             plt.plot(x, y, markersize=10, marker='.', color='blue')
             plt.text(x, y, str(i.getkey()), color="red", fontsize=12)
             for e in self.g.all_out_edges_of_node(i.getkey()).keys():
-                n=self.g.getnode(e)
+                n = self.g.getnode(e)
                 if n.getlocation() is None:
                     v = random.uniform(0.0, 50)
                     w = random.uniform(0.0, 50)
@@ -109,7 +172,3 @@ class GraphAlgo(GraphAlgoInterface):
                 plt.annotate("", xy=(x, y), xytext=(v, w), arrowprops=dict(arrowstyle="<-"))
 
         plt.show()
-
-
-
-

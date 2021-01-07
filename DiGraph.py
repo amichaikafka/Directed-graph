@@ -72,6 +72,10 @@ class DiGraph(GraphInterface):
         return self.MC
 
     def add_edge(self, id1: int, id2: int, weight: float) -> bool:
+        """
+
+        :rtype: object
+        """
         if id1 in self.Nodes and id2 in self.Nodes and id2 not in self.Edges[id1]:
             if self.Edges[id1] is None:
                 self.Edges[id1] = {}

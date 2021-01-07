@@ -50,6 +50,11 @@ def check0():
     print(g.all_out_edges_of_node(1))
     g_algo = GraphAlgo(g)
     print(g_algo.shortest_path(0, 3))
+    print(g_algo.connected_components())
+
+    print(g_algo.connected_component(0))
+
+
     g_algo.plot_graph()
 
 

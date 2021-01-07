@@ -8,15 +8,15 @@ class node_data:
         self.__id = id
         self.__tag = 0
         self.__weight = math.inf
-        self.__info = ""
+        self.__info = "f"
         self.__pos = p
         self.neighbors = {}
 
     def __str__(self) -> str:
-        return f"id:{self.__id},pos:{self.__pos}"
+        return f"id:{self.__id},pos:{self.__pos},info:{self.__info}"
 
     def __repr__(self) -> str:
-        return f"id:{self.__id},pos:{self.__pos}"
+        return f"id:{self.__id},pos:{self.__pos},info:{self.__info}"
 
     def __eq__(self, o: object) -> bool:
         if not (isinstance(o, node_data)):
