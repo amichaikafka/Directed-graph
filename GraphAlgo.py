@@ -163,8 +163,8 @@ class GraphAlgo(GraphAlgoInterface):
             for e in self.g.all_out_edges_of_node(i.getkey()).keys():
                 n = self.g.getnode(e)
                 if n.getlocation() is None:
-                    v = random.uniform(0.0, 50)
-                    w = random.uniform(0.0, 50)
+                    v = random.uniform(0.0, 400)
+                    w = random.uniform(0.0, 400)
                     pos = (v, w, 0)
                     n.setlocation(pos)
 
