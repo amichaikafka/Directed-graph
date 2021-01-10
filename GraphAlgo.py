@@ -66,7 +66,7 @@ class GraphAlgo(GraphAlgoInterface):
                 j["Nodes"] = nodes
                 j["Edges"] = edges
 
-                json.dump(j,indent=4 , fp=file)
+                json.dump(j, indent=4, fp=file)
                 return True
         except IOError as e:
             print(e)
@@ -118,6 +118,20 @@ class GraphAlgo(GraphAlgoInterface):
             return (dest.getweight(), path)
         return (float('inf'), path)
 
+    def BFS(self, src: int, l: list, visited: dict) -> None:
+        q = []
+        l.append(src)
+        q.append(src)
+        while q:
+            n = q.pop(0)
+            visited[n] = True
+            for dest in self.g.all_out_edges_of_node(n).keys():
+                if not visited[dest]:
+                    visited[dest] = True
+                    q.append(dest)
+                    l.append(dest)
+
+
     def dfs(self, n: node_data, stack: list, visited: dict) -> None:
         visited[n.getkey()] = True
         for i in self.g.all_out_edges_of_node(n.getkey()).keys():
@@ -139,57 +153,103 @@ class GraphAlgo(GraphAlgoInterface):
         for i in self.g.get_all_v().keys():
             node = self.g.getnode(i)
             graph.add_node(i, node.getlocation())
+            # print(node)
+            graph.getnode(i).settag(node.gettag())
+            # print(graph.getnode(i))
         for i in self.g.get_all_v().keys():
             for n, w in self.g.all_out_edges_of_node(i).items():
                 graph.add_edge(n, i, w)
         self.g = graph
 
     def connected_component(self, id1: int) -> list:
+        # visited = {}
+        # for i in self.g.get_all_v().keys():
+        #     visited[i] = False
+        # stack = []
+        # cc = []
+        # idnode = self.g.getnode(id1)
+        # for i in self.g.get_all_v().keys():
+        #     i = self.g.getnode(i)
+        #     if not visited[i.getkey()]:
+        #         self.dfs(i, stack, visited)
+        # # self.dfs(idnode, stack, visited)
+        # for i in self.g.get_all_v().keys():
+        #     visited[i] = False
+        # self.transpose()
+        # while stack:
+        #     n = stack.pop()
+        #     self.scc(n, cc, visited)
+        #     if id1 in cc:
+        #         self.transpose()
+        #         return cc
+        #     cc.clear()
         visited = {}
+
         for i in self.g.get_all_v().keys():
             visited[i] = False
-        stack = []
-        cc = []
-        idnode = self.g.getnode(id1)
-        for i in self.g.get_all_v().keys():
-            i = self.g.getnode(i)
-            if not visited[i.getkey()]:
-                self.dfs(i, stack, visited)
-       # self.dfs(idnode, stack, visited)
+        nei = []
+        ccstart = []
+        ccend = []
+        ans = []
+        self.BFS(src=id1, l=nei, visited=visited)
+        ccstart = nei.copy()
+        nei.clear()
+
         for i in self.g.get_all_v().keys():
             visited[i] = False
         self.transpose()
-        while stack:
-            n = stack.pop()
-            self.scc(n, cc, visited)
-            if id1 in cc:
-                self.transpose()
-                return cc
-            cc.clear()
+        self.BFS(src=id1, l=nei, visited=visited)
+        ccend = nei.copy()
+        nei.clear()
+        ccstart.sort()
+
+        for i in ccstart:
+            if i in ccend:
+                self.g.getnode(i).settag(1)
+                ans.append(i)
+        self.transpose()
+        return ans
 
     def connected_components(self) -> List[list]:
+        # stack = []
+        # cc = []
+        # ans = []
+        # visited = {}
+        # for i in self.g.get_all_v().keys():
+        #     visited[i] = False
+        # for i in self.g.get_all_v().keys():
+        #     i = self.g.getnode(i)
+        #     if not visited[i.getkey()]:
+        #         self.dfs(i, stack, visited)
+        # for i in self.g.get_all_v().keys():
+        #     visited[i] = False
+        # self.transpose()
+        #
+        # while stack:
+        #     n = stack.pop()
+        #     if not visited[n.getkey()]:
+        #         self.scc(n, cc, visited)
+        #         ans.append(cc.copy())
+        #     # print(ans)
+        #     cc.clear()
+        # self.transpose()
+        # return ans
+        self.initgraph()
         stack = []
+        ccstart = []
         cc = []
         ans = []
         visited = {}
         for i in self.g.get_all_v().keys():
             visited[i] = False
-        for i in self.g.get_all_v().keys():
-            i = self.g.getnode(i)
-            if not visited[i.getkey()]:
-                self.dfs(i, stack, visited)
-        for i in self.g.get_all_v().keys():
-            visited[i] = False
-        self.transpose()
-
-        while stack:
-            n = stack.pop()
-            if not visited[n.getkey()]:
-                self.scc(n, cc, visited)
-                ans.append(cc.copy())
-            # print(ans)
-            cc.clear()
-        self.transpose()
+        for node in self.g.get_all_v().keys():
+            # print(node)
+            if not visited[node]:
+                cc=self.connected_component(node)
+                for v in cc:
+                    visited[v]=True
+                ans.append(cc)
+                # print(node)
         return ans
 
     def plot_graph(self) -> None:

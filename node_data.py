@@ -13,7 +13,7 @@ class node_data:
         self.neighbors = {}
 
     def __str__(self) -> str:
-        return f"id:{self.__id},pos:{self.__pos},info:{self.__info}"
+        return f"id:{self.__id},pos:{self.__pos},tag:{self.__tag}"
 
     def __repr__(self) -> str:
         return f"id:{self.__id},pos:{self.__pos},info:{self.__info}"

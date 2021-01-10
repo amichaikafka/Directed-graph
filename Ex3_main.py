@@ -99,24 +99,26 @@ def check2():
     g_algo.plot_graph()
 def check3():
     g_algo = GraphAlgo()
-    file = './data/G_10_80_0.json'
-    g_algo.load_from_json(file)
-    g_algo.plot_graph()
-    file = './data/G_100_800_0.json'
-    g_algo.load_from_json(file)
-    g_algo.plot_graph()
-    file = './data/G_1000_8000_0.json'
-    g_algo.load_from_json(file)
-    g_algo.plot_graph()
-    file = './data/G_10000_80000_0.json'
-    g_algo.load_from_json(file)
-    g_algo.plot_graph()
-    file = './data/G_20000_160000_0.json'
-    g_algo.load_from_json(file)
-    g_algo.plot_graph()
+    # file = './data/G_10_80_0.json'
+    # g_algo.load_from_json(file)
+    # g_algo.plot_graph()
+    # file = './data/G_100_800_0.json'
+    # g_algo.load_from_json(file)
+    # g_algo.plot_graph()
+    # file = './data/G_1000_8000_0.json'
+    # g_algo.load_from_json(file)
+    # g_algo.plot_graph()
+    # file = './data/G_10000_80000_0.json'
+    # g_algo.load_from_json(file)
+    # g_algo.plot_graph()
+    # file = './data/G_20000_160000_0.json'
+    # g_algo.load_from_json(file)
+    # g_algo.plot_graph()
     file = './data/G_30000_240000_0.json'
     g_algo.load_from_json(file)
-    g_algo.plot_graph()
+    print(g_algo.connected_components())
+
+    # g_algo.plot_graph()
 
 if __name__ == '__main__':
     check()
