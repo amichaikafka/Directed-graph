@@ -1,7 +1,7 @@
 from heapq import *
 from typing import List
 import random
-
+import json
 import networkx as nx
 import pylab
 
@@ -29,10 +29,48 @@ class GraphAlgo(GraphAlgoInterface):
         return self.g
 
     def load_from_json(self, file_name: str) -> bool:
-        pass
+        graph = DiGraph()
+        try:
+            with open(file_name, "r") as file:
+                my_d = json.load(file)
+        except IOError as e:
+            print(e)
+            return False
+        for i in my_d["Nodes"]:
+            if "pos" not in i.keys():
+                graph.add_node(node_id=i["id"])
+            else:
+                p = tuple(map(float, i["pos"].split(",")))
+                graph.add_node(node_id=i["id"], pos=p)
+        for edge in my_d["Edges"]:
+            src = edge["src"]
+            dest = edge["dest"]
+            w = edge["w"]
+            graph.add_edge(id1=src, id2=dest, weight=w)
+        self.g = graph
+        return True
 
     def save_to_json(self, file_name: str) -> bool:
-        pass
+        try:
+            with open(file_name, "w") as file:
+                j = {}
+                nodes = []
+                edges = []
+                for i in self.g.get_all_v().values():
+                    if i.getlocation() is None:
+                        nodes.append({"id": i.getkey()})
+                    else:
+                        nodes.append({"id": i.getkey(), "pos": str(i.getlocation())})
+                    for v, k in self.g.all_out_edges_of_node(i.getkey()).items():
+                        edges.append({"src": i.getkey(), "dest": v, "w": k})
+                j["Nodes"] = nodes
+                j["Edges"] = edges
+
+                json.dump(j,indent=4 , fp=file)
+                return True
+        except IOError as e:
+            print(e)
+            return False
 
     def Dijkstra(self, src: node_data, dest: node_data) -> dict:
         p = {}
@@ -69,15 +107,16 @@ class GraphAlgo(GraphAlgoInterface):
         src = self.g.getnode(id1)
         dest = self.g.getnode(id2)
         p = self.Dijkstra(src, dest)
+        path = []
         if id2 in p.keys():
-            path = []
+
             path.append(id2)
             n = id2
             while n != id1:
                 n = p[n].getkey()
                 path.insert(0, n)
             return (dest.getweight(), path)
-        return (float('inf'), None)
+        return (float('inf'), path)
 
     def dfs(self, n: node_data, stack: list, visited: dict) -> None:
         visited[n.getkey()] = True
@@ -112,16 +151,21 @@ class GraphAlgo(GraphAlgoInterface):
         stack = []
         cc = []
         idnode = self.g.getnode(id1)
-        self.dfs(idnode, stack, visited)
+        for i in self.g.get_all_v().keys():
+            i = self.g.getnode(i)
+            if not visited[i.getkey()]:
+                self.dfs(i, stack, visited)
+       # self.dfs(idnode, stack, visited)
         for i in self.g.get_all_v().keys():
             visited[i] = False
         self.transpose()
         while stack:
             n = stack.pop()
-            if n.getkey() == id1:
-                self.scc(n, cc, visited)
+            self.scc(n, cc, visited)
+            if id1 in cc:
                 self.transpose()
                 return cc
+            cc.clear()
 
     def connected_components(self) -> List[list]:
         stack = []
@@ -152,8 +196,8 @@ class GraphAlgo(GraphAlgoInterface):
         for i in self.g.get_all_v().values():
             x = y = 0
             if i.getlocation() is None:
-                x = random.uniform(0.0, 50)
-                y = random.uniform(0.0, 50)
+                x = random.uniform(0.0, 10000)
+                y = random.uniform(0.0, 10000)
                 pos = (x, y, 0)
                 i.setlocation(pos)
 
@@ -163,8 +207,8 @@ class GraphAlgo(GraphAlgoInterface):
             for e in self.g.all_out_edges_of_node(i.getkey()).keys():
                 n = self.g.getnode(e)
                 if n.getlocation() is None:
-                    v = random.uniform(0.0, 400)
-                    w = random.uniform(0.0, 400)
+                    v = random.uniform(0.0, 10000)
+                    w = random.uniform(0.0, 10000)
                     pos = (v, w, 0)
                     n.setlocation(pos)
 

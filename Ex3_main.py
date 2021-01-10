@@ -24,9 +24,10 @@ def check():
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]]
     """
-    check0()
+    # check0()
     # check1()
     # check2()
+    check3()
 
 
 def check0():
@@ -51,6 +52,7 @@ def check0():
     g_algo = GraphAlgo(g)
     print(g_algo.shortest_path(0, 3))
     print(g_algo.connected_components())
+    g_algo.save_to_json("g.json")
 
     print(g_algo.connected_component(0))
 
@@ -64,7 +66,7 @@ def check1():
     :return:
     """
     g_algo = GraphAlgo()  # init an empty graph - for the GraphAlgo
-    file = "../data/T0.json"
+    file = "./data/T0.json"
     g_algo.load_from_json(file)  # init a GraphAlgo from a json file
     print(g_algo.connected_components())
     print(g_algo.shortest_path(0, 3))
@@ -78,8 +80,10 @@ def check2():
       :return:
       """
     g_algo = GraphAlgo()
-    file = '../data/A5'
+    file = './data/A5'
+    # g_algo.save_to_json(file+"_my")
     g_algo.load_from_json(file)
+    g_algo.save_to_json(file + "_my")
     g_algo.get_graph().remove_edge(13, 14)
     g_algo.save_to_json(file + "_edited")
     dist, path = g_algo.shortest_path(1, 7)
@@ -93,7 +97,27 @@ def check2():
     print(g_algo.connected_component(0))
     print(g_algo.connected_components())
     g_algo.plot_graph()
-
+def check3():
+    g_algo = GraphAlgo()
+    file = './data/G_10_80_0.json'
+    g_algo.load_from_json(file)
+    g_algo.plot_graph()
+    file = './data/G_100_800_0.json'
+    g_algo.load_from_json(file)
+    g_algo.plot_graph()
+    file = './data/G_1000_8000_0.json'
+    g_algo.load_from_json(file)
+    g_algo.plot_graph()
+    file = './data/G_10000_80000_0.json'
+    g_algo.load_from_json(file)
+    g_algo.plot_graph()
+    file = './data/G_20000_160000_0.json'
+    g_algo.load_from_json(file)
+    g_algo.plot_graph()
+    file = './data/G_30000_240000_0.json'
+    g_algo.load_from_json(file)
+    g_algo.plot_graph()
 
 if __name__ == '__main__':
     check()
+
