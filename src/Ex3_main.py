@@ -1,8 +1,8 @@
 from queue import PriorityQueue
 
-from DiGraph import DiGraph
+from src.DiGraph import DiGraph
 # from GraphAlgo import GraphAlgo
-from GraphAlgo import GraphAlgo
+from src.GraphAlgo import GraphAlgo
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -24,10 +24,10 @@ def check():
     [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]]
     """
-    # check0()
+    check0()
     # check1()
     # check2()
-    check3()
+    # check3()
 
 
 def check0():
@@ -55,9 +55,18 @@ def check0():
     g_algo.save_to_json("g.json")
 
     print(g_algo.connected_component(0))
-
+    print(g_algo.g.e_size())
 
     g_algo.plot_graph()
+    g_algo.g.remove_node(0)
+    g_algo.g.add_node(9)
+    g_algo.g.add_edge(0,9,2)
+    g_algo.g.add_edge(1, 9, 2)
+    g_algo.g.add_edge(2, 9, 2)
+
+    print(g_algo.g.e_size())
+    g_algo.plot_graph()
+    # print(g_algo.g.e_size())
 
 
 def check1():
@@ -66,7 +75,7 @@ def check1():
     :return:
     """
     g_algo = GraphAlgo()  # init an empty graph - for the GraphAlgo
-    file = "./data/T0.json"
+    file = "../data/T0.json"
     g_algo.load_from_json(file)  # init a GraphAlgo from a json file
     print(g_algo.connected_components())
     print(g_algo.shortest_path(0, 3))
@@ -80,7 +89,7 @@ def check2():
       :return:
       """
     g_algo = GraphAlgo()
-    file = './data/A5'
+    file = '../data/A5'
     # g_algo.save_to_json(file+"_my")
     g_algo.load_from_json(file)
     g_algo.save_to_json(file + "_my")
@@ -97,29 +106,33 @@ def check2():
     print(g_algo.connected_component(0))
     print(g_algo.connected_components())
     g_algo.plot_graph()
+
+
 def check3():
     g_algo = GraphAlgo()
-    # file = './data/G_10_80_0.json'
+    # file = '../data/G_10_80_0.json'
     # g_algo.load_from_json(file)
     # g_algo.plot_graph()
-    # file = './data/G_100_800_0.json'
+    # file = '../data/G_100_800_0.json'
     # g_algo.load_from_json(file)
     # g_algo.plot_graph()
-    # file = './data/G_1000_8000_0.json'
+    file = '../data/G_1000_8000_0.json'
     # g_algo.load_from_json(file)
     # g_algo.plot_graph()
-    # file = './data/G_10000_80000_0.json'
+    # file = '../data/G_10000_80000_0.json'
     # g_algo.load_from_json(file)
     # g_algo.plot_graph()
-    # file = './data/G_20000_160000_0.json'
+    # file = '../data/G_20000_160000_0.json'
     # g_algo.load_from_json(file)
     # g_algo.plot_graph()
-    file = './data/G_30000_240000_0.json'
+    # file = '../data/G_30000_240000_0.json'
     g_algo.load_from_json(file)
+    g_algo.g.remove_node(23)
+    g_algo.g.add_node(23)
     print(g_algo.connected_components())
 
     # g_algo.plot_graph()
 
+
 if __name__ == '__main__':
     check()
-

@@ -1,15 +1,16 @@
 
-import GraphInterface as graph
+from src.GraphInterface import GraphInterface
 
-
-from GraphInterface import GraphInterface
-
-from node_data import node_data
+from src.node_data import node_data
 
 
 class DiGraph(GraphInterface):
 
     def __init__(self) -> None:
+        """
+
+        :rtype: object
+        """
         self.edgesize = 0
         self.MC = 0
         self.Nodes = {}
@@ -59,14 +60,18 @@ class DiGraph(GraphInterface):
         return self.Nodes
 
     def all_in_edges_of_node(self, id1: int) -> dict:
-        ans = {}
-        for i, j in self.Edges.items():
-            if id1 in j:
-                ans[i] = j[id1]
-        return ans
+        if id1 in self.Nodes:
+            ans = {}
+            for i, j in self.Edges.items():
+                if id1 in j:
+                    ans[i] = j[id1]
+            return ans
+        return {}
 
     def all_out_edges_of_node(self, id1: int) -> dict:
-        return self.Edges[id1]
+        if id1 in self.Nodes:
+            return self.Edges[id1]
+        return {}
 
     def get_mc(self) -> int:
         return self.MC
@@ -97,11 +102,14 @@ class DiGraph(GraphInterface):
         if node_id in self.Nodes:
             out = self.all_out_edges_of_node(node_id)
             to = self.all_in_edges_of_node(node_id)
-            for k in out.keys():
-                self.remove_edge(node_id, k)
+            self.MC +=len(self.Edges[node_id])
+            self.edgesize -= len(self.Edges[node_id])
+            del (self.Edges[node_id])
+            # for k in out.keys():
+            #     self.remove_edge(node_id, k)
             for k in to.keys():
                 self.remove_edge(k, node_id)
-            self.Edges.pop(node_id)
+            # self.Edges.pop(node_id)
             self.Nodes.pop(node_id)
             self.MC += 1
             return True
@@ -115,4 +123,3 @@ class DiGraph(GraphInterface):
             return True
         else:
             return False
-

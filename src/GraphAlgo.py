@@ -5,10 +5,10 @@ import json
 import networkx as nx
 import pylab
 
-from node_data import node_data
-from GraphInterface import GraphInterface
-from GraphAlgoInterface import GraphAlgoInterface
-from DiGraph import DiGraph
+from src.node_data import node_data
+from src.GraphInterface import GraphInterface
+from src.GraphAlgoInterface import GraphAlgoInterface
+from src.DiGraph import DiGraph
 from typing import Deque
 import queue
 from queue import PriorityQueue
@@ -103,19 +103,21 @@ class GraphAlgo(GraphAlgoInterface):
             i.setweight(math.inf)
 
     def shortest_path(self, id1: int, id2: int) -> (float, list):
-        self.initgraph()
-        src = self.g.getnode(id1)
-        dest = self.g.getnode(id2)
-        p = self.Dijkstra(src, dest)
         path = []
-        if id2 in p.keys():
+        if id1 in self.g.get_all_v() and id2 in self.g.get_all_v():
+            self.initgraph()
+            src = self.g.getnode(id1)
+            dest = self.g.getnode(id2)
+            p = self.Dijkstra(src, dest)
 
-            path.append(id2)
-            n = id2
-            while n != id1:
-                n = p[n].getkey()
-                path.insert(0, n)
-            return (dest.getweight(), path)
+            if id2 in p.keys():
+
+                path.append(id2)
+                n = id2
+                while n != id1:
+                    n = p[n].getkey()
+                    path.insert(0, n)
+                return (dest.getweight(), path)
         return (float('inf'), path)
 
     def BFS(self, src: int, l: list, visited: dict) -> None:
@@ -264,7 +266,7 @@ class GraphAlgo(GraphAlgoInterface):
             x, y, z = i.getlocation()
             plt.plot(x, y, markersize=10, marker='.', color='blue')
             plt.text(x, y, str(i.getkey()), color="red", fontsize=12)
-            for e in self.g.all_out_edges_of_node(i.getkey()).keys():
+            for e,wi in self.g.all_out_edges_of_node(i.getkey()).items():
                 n = self.g.getnode(e)
                 if n.getlocation() is None:
                     v = random.uniform(0.0, 10000)
@@ -274,5 +276,6 @@ class GraphAlgo(GraphAlgoInterface):
 
                 v, w, z = n.getlocation()
                 plt.annotate("", xy=(x, y), xytext=(v, w), arrowprops=dict(arrowstyle="<-"))
+                plt.text((x+v)/2, (y+w)/2, str(wi), color="purple", fontsize=10)
 
         plt.show()
