@@ -25,9 +25,14 @@ We will now detail some of the main functions:
 * shortest_path - returns the shortest path from node id1 to node id2 using Dijkstra's Algorithm.
 * load_from_json - loads a graph from a json file.
 * save_to_json - saves the graph in JSON format to a file.
-* scc - second dfs scan only here we start from the node that has the latest finishing time
-        according to the stack we used in the dfs algorithm and for each node that all of his neighbors
-        were discovered enter him to a list (cc) as connected_component
+* transpose - Transpose this graph: for every edge (u,v) make it (v,u) this is part of the algorithm of finding connected component.
+* connected_component - finds the Strongly Connected Component(SCC) that node id1 is a part of. (If the graph is None or id1 is not in the graph, the function should return an empty list []).
+* connected_components - finds all the Strongly Connected Component(SCC) in the graph. (If the graph is None the function should return an empty list []).
+* plot_graph - Plots the graph.
+        If the nodes have a position, the nodes will be placed there.
+        Otherwise, they will be placed in a random but elegant manner.
+
+
 
 
 ## Main Algorithms
@@ -40,6 +45,17 @@ for each node, in this search, until destination node.
 Implementaion of non recursive dfs algorithm scan the graph for each node
 enter to a list to mark the discover time, when a node that all of his neighbors
 were discoverd enter him to a stack.
+
+### scc 
+second dfs scan only here we start from the node that has the latest finishing time
+according to the stack we used in the dfs algorithm and for each node that all of his neighbors
+were discovered enter him to a list (cc) as connected_component.
+
+### scc2
+this function uesd only for connected_component for particular node
+second dfs scan only here we start from the node that has the latest finishing time
+according to the stack we used in the dfs algorithm and for each node that all of his neighbors
+were discovered enter him to a list (cc) as connected_component.
 
 
 
