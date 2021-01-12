@@ -1,69 +1,37 @@
 
 
-graph:../data/G_10000_80000_1.json,shortest_path:0.03285539999999998
-(83.3951734985157, [0, 9624, 5012, 8093, 2713, 4900, 8702, 285, 2766, 2])
-graph:../data/G_10000_80000_1.json,connected_component:0.8034791
-graph:../data/G_10000_80000_1.json,connected_components:1.6061077000000004
+graph:../data/G_10_80_1.json,shortest_path:2.9900000000027127e-05
+(5.222720639544136, [0, 2])
+graph:../data/G_10_80_1.json,connected_component:0.00014779999999992022
 
-graph:../data/G_10000_80000_1.json,shortest_path:0.023070000000000035
-(83.3951734985157, [0, 9624, 5012, 8093, 2713, 4900, 8702, 285, 2766, 2])
-graph:../data/G_10000_80000_1.json,connected_component:0.7758385999999999
-graph:../data/G_10000_80000_1.json,connected_components:1.5576106999999997
+graph:../data/G_10_80_1.json,connected_components:0.00013769999999990734
 
-graph:../data/G_20000_160000_1.json,shortest_path:0.029224600000000045
+graph:../data/G_100_800_1.json,shortest_path:0.0007804000000000144
+(53.330911142826054, [0, 70, 81, 77, 2])
+graph:../data/G_100_800_1.json,connected_component:0.0015779999999999683
+
+graph:../data/G_100_800_1.json,connected_components:0.0013769000000000142
+
+graph:../data/G_1000_8000_1.json,shortest_path:0.007425800000000038
+(77.02130475229296, [0, 375, 775, 120, 524, 2])
+graph:../data/G_1000_8000_1.json,connected_component:0.022064699999999937
+
+graph:../data/G_1000_8000_1.json,connected_components:0.026254600000000017
+
+graph:../data/G_10000_80000_1.json,shortest_path:0.020568799999999943
+(83.3951734985157, [0, 9624, 5012, 8093, 2713, 4900, 8702, 285, 2766, 2])
+graph:../data/G_10000_80000_1.json,connected_component:0.24480310000000005
+
+graph:../data/G_10000_80000_1.json,connected_components:0.3735894000000002
+
+graph:../data/G_20000_160000_1.json,shortest_path:0.02088639999999997
 (68.08351227064264, [0, 12445, 14660, 9565, 755, 6478, 10563, 13080, 2])
-graph:../data/G_20000_160000_1.json,connected_component:3.063588
-graph:../data/G_20000_160000_1.json,connected_components:8.253485900000001
+graph:../data/G_20000_160000_1.json,connected_component:0.5170611
 
-graph:../data/G_30000_240000_1.json,shortest_path:0.29452979999999984
+graph:../data/G_20000_160000_1.json,connected_components:0.8037356
+
+graph:../data/G_30000_240000_1.json,shortest_path:0.26762510000000006
 (104.02321171360926, [0, 27764, 8605, 17045, 22247, 17042, 451, 23050, 22556, 685, 18385, 25517, 21026, 2])
-graph:../data/G_30000_240000_1.json,connected_component:6.372874099999999
-graph:../data/G_30000_240000_1.json,connected_components:23.4834041
+graph:../data/G_30000_240000_1.json,connected_component:0.8103364000000002
 
-graph:../data/G_30000_240000_1.json,shortest_path:0.28475970000000017
-(104.02321171360926, [0, 27764, 8605, 17045, 22247, 17042, 451, 23050, 22556, 685, 18385, 25517, 21026, 2])
-graph:../data/G_30000_240000_1.json,connected_component:1.9396195999999999
-graph:../data/G_30000_240000_1.json,connected_components:18.2280944
-
-graph:../data/G_30000_240000_1.json,shortest_path:0.31322990000000006
-(104.02321171360926, [0, 27764, 8605, 17045, 22247, 17042, 451, 23050, 22556, 685, 18385, 25517, 21026, 2])
-graph:../data/G_30000_240000_1.json,connected_component:1.9335561
-graph:../data/G_30000_240000_1.json,connected_components:18.8789222
-
-graph:../data/G_30000_240000_1.json,shortest_path:0.2983842000000001
-(104.02321171360926, [0, 27764, 8605, 17045, 22247, 17042, 451, 23050, 22556, 685, 18385, 25517, 21026, 2])
-graph:../data/G_30000_240000_1.json,connected_component:1.9818183
-
-graph:../data/G_30000_240000_1.json,connected_components:1.5732484999999996
-
-graph:../data/G_30000_240000_1.json,shortest_path:0.25594739999999994
-(104.02321171360926, [0, 27764, 8605, 17045, 22247, 17042, 451, 23050, 22556, 685, 18385, 25517, 21026, 2])
-graph:../data/G_30000_240000_1.json,shortest_path:0.27279889999999996
-(104.02321171360926, [0, 27764, 8605, 17045, 22247, 17042, 451, 23050, 22556, 685, 18385, 25517, 21026, 2])
-graph:../data/G_30000_240000_1.json,connected_component:0.7793173
-
-graph:../data/G_30000_240000_1.json,connected_components:1.4382571
-
-graph:../data/G_10000_80000_1.json,shortest_path:0.02748879999999998
-(83.3951734985157, [0, 9624, 5012, 8093, 2713, 4900, 8702, 285, 2766, 2])
-graph:../data/G_10000_80000_1.json,connected_component:9.1255305
-
-graph:../data/G_10000_80000_1.json,connected_components:0.2956866999999992
-
-graph:../data/G_10000_80000_1.json,shortest_path:0.02040810000000004
-(83.3951734985157, [0, 9624, 5012, 8093, 2713, 4900, 8702, 285, 2766, 2])
-graph:../data/G_10000_80000_1.json,shortest_path:0.02145320000000006
-(83.3951734985157, [0, 9624, 5012, 8093, 2713, 4900, 8702, 285, 2766, 2])
-graph:../data/G_10000_80000_1.json,connected_component:0.19184040000000002
-
-graph:../data/G_10000_80000_1.json,shortest_path:0.019938200000000017
-(83.3951734985157, [0, 9624, 5012, 8093, 2713, 4900, 8702, 285, 2766, 2])
-graph:../data/G_10000_80000_1.json,connected_component:0.19567289999999993
-
-graph:../data/G_10000_80000_1.json,connected_components:0.2592780000000001
-
-graph:../data/G_30000_240000_1.json,shortest_path:0.29221929999999996
-(104.02321171360926, [0, 27764, 8605, 17045, 22247, 17042, 451, 23050, 22556, 685, 18385, 25517, 21026, 2])
-graph:../data/G_30000_240000_1.json,connected_component:0.8670602000000001
-
-graph:../data/G_30000_240000_1.json,connected_components:1.5613025
+graph:../data/G_30000_240000_1.json,connected_components:1.5485729

@@ -8,6 +8,7 @@ import time
 from contextlib import contextmanager
 from timeit import default_timer
 import networkx as nx
+import math
 
 from src import *
 
@@ -73,14 +74,17 @@ class TestGraphAlgo(unittest.TestCase):
     def test_connected_component(self):
         g = self.create_graph()
         ga = GraphAlgo.GraphAlgo(g)
-        l = [0, 1, 2, 3]
+        l = [3,1,2,0]
         lst = ga.connected_component(0)
+        self.assertEqual(lst, l)
+        l = []
+        lst = ga.connected_component(99)
         self.assertEqual(lst, l)
 
     def test_connected_components(self):
         g = self.create_graph()
         ga = GraphAlgo.GraphAlgo(g)
-        l = [[0, 1, 2, 3], [4], [5], [6], [7, 8, 9], [10]]
+        l = [[3, 1, 2, 0], [6], [4], [9, 7, 8], [10], [5]]
         lst = ga.connected_components()
         self.assertEqual(lst, l)
 
@@ -93,6 +97,10 @@ class TestGraphAlgo(unittest.TestCase):
         ga.get_graph().add_edge(6, 8, 1)
         l = (5, [0, 2, 3, 1, 6, 8])
         lst = ga.shortest_path(0, 8)
+        self.assertEqual(l, lst)
+        l=(math.inf,[])
+        lst = ga.shortest_path(0, 99)
+
         self.assertEqual(l, lst)
 
     def test_plot_graph(self):
