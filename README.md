@@ -9,7 +9,7 @@ we will deal with weighted and directed graphs, but this time in Python (compare
 
 We will first describe the structure of our project:
 ### first part 
-..* the DiGraph class is implemented using GraphInterface
+* the DiGraph class is implemented using GraphInterface
 
 
 
