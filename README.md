@@ -12,7 +12,7 @@ we will deal with weighted and directed graphs, but this time in Python (compare
 * Second part - GraphAlgo inheritance from the abstract class GraphInterface
 * third part - Checking and comparing running times.
 
-We will now detail some of the main functions
+We will now detail some of the main functions:
 ### DiGraph
 * add_node - Adds a node to the graph by the node ID.
 * remove_node - removes a node from the graph.
