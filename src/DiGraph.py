@@ -4,6 +4,12 @@ from src.node_data import node_data
 
 
 class DiGraph(GraphInterface):
+    """
+
+    This class implements GraphInterface interface represents a directional weighted graph.
+    can support a large number of nodes (over 100,000).
+    The implementation using a dict.
+    """
 
     def __init__(self) -> None:
         """

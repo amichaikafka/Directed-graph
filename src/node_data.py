@@ -3,65 +3,64 @@ import math
 
 
 class node_data:
+    """
+    This class  represents the set of operations applicable on a
+    node (vertex) in a (directional) weighted graph.
+    """
 
     def __init__(self, id: int, p: tuple = None, **kwargs) -> None:
-        self.__id = id
-        self.__tag = 0
-        self.__weight = math.inf
-        self.__info = "f"
-        self.__pos = p
-        self.neighbors = {}
+        self.id = id
+        self.tag = 0
+        self.weight = math.inf
+        self.info = "f"
+        self.pos = p
+
 
     def __str__(self) -> str:
-        return f"id:{self.__id},pos:{self.__pos},tag:{self.__tag}"
+        return f"id:{self.id},pos:{self.pos}"
 
     def __repr__(self) -> str:
-        return f"id:{self.__id},pos:{self.__pos},info:{self.__info}"
+        return f"id:{self.id},pos:{self.pos}"
 
     def __eq__(self, o: object) -> bool:
         if not (isinstance(o, node_data)):
             return False
-        return self.__id == o.__id
+        return self.id == o.id
 
     def __lt__(self, other):
-        return self.__weight < other.__weight
+        return self.weight < other.weight
 
     def __hash__(self) -> int:
-        return self.__id
+        return self.id
 
     def getkey(self) -> int:
-        return self.__id
+        return self.id
 
     def gettag(self) -> int:
-        return self.__tag
+        return self.tag
 
     def getweight(self) -> float:
-        return self.__weight
+        return self.weight
 
     def getinfo(self) -> str:
-        return self.__info
+        return self.info
 
     def settag(self, tag: int) -> None:
-        self.__tag = tag
+        self.tag = tag
 
     def setweight(self, w: float) -> None:
-        self.__weight = w
+        self.weight = w
 
     def setinfo(self, info: str) -> None:
-        self.__info = info
+        self.info = info
 
     def getlocation(self) -> tuple:
-        return self.__pos
+        return self.pos
 
     def setlocation(self, pos) -> None:
-        self.__pos = pos
+        self.pos = pos
 
-    def getneighbors(self) -> dict:
-        return self.neighbors
 
-    def isneighbor(self, node_id: int) -> bool:
-        return self.neighbors.__contains__(node_id)
 
-    def addneighbor(self, node_id: int, w: float) -> None:
-        if node_id not in self.neighbors:
-            self.neighbors[node_id] = w
+
+

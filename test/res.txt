@@ -35,3 +35,81 @@ graph:../data/G_30000_240000_1.json,shortest_path:0.26762510000000006
 graph:../data/G_30000_240000_1.json,connected_component:0.8103364000000002
 
 graph:../data/G_30000_240000_1.json,connected_components:1.5485729
+
+graph:../data/G_30000_240000_1.json,shortest_path:0.293126
+(104.02321171360926, [0, 27764, 8605, 17045, 22247, 17042, 451, 23050, 22556, 685, 18385, 25517, 21026, 2])
+graph:../data/G_30000_240000_1.json,connected_component:0.8941260000000002
+
+graph:../data/G_30000_240000_1.json,connected_components:1.6608196000000002
+
+graph:../data/G_10_80_1.json.json,shortest_path:3.6999999999398625e-06
+(inf, [])
+graph:../data/G_10_80_1.json.json,connected_component:1.8999999999991246e-06
+
+graph:../data/G_10_80_1.json.json,connected_components:8.799999999997699e-05
+
+graph:../data/G_10_80_1.json,shortest_path:3.100000000000325e-05
+(5.222720639544136, [0, 2])
+graph:../data/G_10_80_1.json,connected_component:0.00016660000000001673
+
+graph:../data/G_10_80_1.json,connected_components:0.0002866000000000257
+
+graph:../data/G_10_80_1.json,shortest_path:0.00018759999999995447
+(5.222720639544136, [0, 2])
+graph:../data/G_10_80_1.json,connected_component:0.0001542999999999406
+
+graph:../data/G_10_80_1.json,connected_components:0.0002450999999999981
+
+graph:../data/G_10_80_1.json,shortest_path:0.00011230000000006513
+(5.222720639544136, [0, 2])
+graph:../data/G_10_80_1.json,connected_component:0.00013689999999999536
+
+graph:../data/G_10_80_1.json,connected_components:0.00021519999999997097
+
+graph:../data/G_10_80_1.json,shortest_path:0.00012479999999992497
+(5.222720639544136, [0, 2])
+graph:../data/G_10_80_1.json,connected_component:0.00014890000000000736
+
+graph:../data/G_10_80_1.json,connected_components:0.00023519999999999097
+
+graph:../data/G_30000_240000_1.json,shortest_path:0.29745319999999986
+(104.02321171360926, [0, 27764, 8605, 17045, 22247, 17042, 451, 23050, 22556, 685, 18385, 25517, 21026, 2])
+graph:../data/G_30000_240000_1.json,connected_component:0.9144524999999999
+
+graph:../data/G_30000_240000_1.json,connected_components:1.7460022000000002
+
+graph:../data/G_30000_240000_1.json,shortest_path:0.2648058
+(104.02321171360926, [0, 27764, 8605, 17045, 22247, 17042, 451, 23050, 22556, 685, 18385, 25517, 21026, 2])
+graph:../data/G_30000_240000_1.json,connected_component:0.8998884
+
+graph:../data/G_30000_240000_1.json,connected_components:1.7631379999999996
+
+graph:../data/G_30000_240000_1.json,shortest_path:0.2702605
+(104.02321171360926, [0, 27764, 8605, 17045, 22247, 17042, 451, 23050, 22556, 685, 18385, 25517, 21026, 2])
+graph:../data/G_30000_240000_1.json,connected_component:0.8399117999999999
+
+graph:../data/G_30000_240000_1.json,connected_components:1.5911866000000003
+
+graph:../data/G_30000_240000_1.json,shortest_path:0.30492129999999995
+(104.02321171360926, [0, 27764, 8605, 17045, 22247, 17042, 451, 23050, 22556, 685, 18385, 25517, 21026, 2])
+graph:../data/G_30000_240000_1.json,connected_component:0.8825590000000001
+
+graph:../data/G_30000_240000_1.json,connected_components:1.5586547
+
+graph:../data/G_30000_240000_1.json,shortest_path:0.5475292
+(104.02321171360926, [0, 27764, 8605, 17045, 22247, 17042, 451, 23050, 22556, 685, 18385, 25517, 21026, 2])
+graph:../data/G_30000_240000_1.json,connected_component:1.4203837000000004
+
+graph:../data/G_30000_240000_1.json,connected_components:3.1133621999999996
+
+graph:../data/G_30000_240000_1.json,shortest_path:0.48817790000000016
+(104.02321171360926, [0, 27764, 8605, 17045, 22247, 17042, 451, 23050, 22556, 685, 18385, 25517, 21026, 2])
+graph:../data/G_30000_240000_1.json,connected_component:1.3873133000000002
+
+graph:../data/G_30000_240000_1.json,connected_components:24.182204999999996
+
+graph:../data/G_30000_240000_1.json,shortest_path:0.47806450000000034
+(104.02321171360926, [0, 27764, 8605, 17045, 22247, 17042, 451, 23050, 22556, 685, 18385, 25517, 21026, 2])
+graph:../data/G_30000_240000_1.json,connected_component:1.3767942
+
+graph:../data/G_30000_240000_1.json,connected_components:22.475486

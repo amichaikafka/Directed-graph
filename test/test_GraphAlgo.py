@@ -40,6 +40,10 @@ class TestGraphAlgo(unittest.TestCase):
         return g
 
     def test_get_graph(self):
+        """
+        this test check the correctness of get_graph function
+        :return:None
+        """
         g = self.create_graph()
 
         print(g)
@@ -49,6 +53,10 @@ class TestGraphAlgo(unittest.TestCase):
         self.assertEqual(ga.get_graph(), g)
 
     def test_save_load_to_json(self):
+        """
+        this test check the correctness of save and load functions
+        :return:None
+        """
         g = self.create_graph()
         ga = GraphAlgo.GraphAlgo(g)
         print(ga.get_graph())
@@ -61,6 +69,10 @@ class TestGraphAlgo(unittest.TestCase):
         self.assertEqual(ga.get_graph(), g)
 
     def test_transpose(self):
+        """
+        this test check the correctness of transpose function
+        :return:None
+        """
         g = self.create_graph()
         print(g)
         ga = GraphAlgo.GraphAlgo(g)
@@ -72,6 +84,10 @@ class TestGraphAlgo(unittest.TestCase):
         self.assertEqual(ga.get_graph(), g)
 
     def test_connected_component(self):
+        """
+        this test check the correctness of connected_component function
+        :return:None
+        """
         g = self.create_graph()
         ga = GraphAlgo.GraphAlgo(g)
         l = [3,1,2,0]
@@ -82,6 +98,10 @@ class TestGraphAlgo(unittest.TestCase):
         self.assertEqual(lst, l)
 
     def test_connected_components(self):
+        """
+        this test check the correctness of connected_components function
+        :return:None
+        """
         g = self.create_graph()
         ga = GraphAlgo.GraphAlgo(g)
         l = [[3, 1, 2, 0], [6], [4], [9, 7, 8], [10], [5]]
@@ -89,6 +109,10 @@ class TestGraphAlgo(unittest.TestCase):
         self.assertEqual(lst, l)
 
     def test_shortest_path(self):
+        """
+        this test check the correctness of shortest path function
+        :return:None
+        """
         g = self.create_graph()
         ga = GraphAlgo.GraphAlgo(g)
         l = (6, [0, 2, 3, 1, 6, 7, 8])
@@ -115,6 +139,7 @@ class TestGraphAlgo(unittest.TestCase):
         yield lambda: elapser()
         end = default_timer()
         elapser = lambda: end - start
+
     def graph_nx(self,graph:DiGraph):
         g=nx.DiGraph()
         for i in graph.get_all_v().keys():
@@ -126,6 +151,10 @@ class TestGraphAlgo(unittest.TestCase):
 
 
     def test_algo_time(self):
+        """
+        this test check the run time of connected_components and shortest path
+        :return:None
+        """
         ga = GraphAlgo.GraphAlgo()
         filename='../data/G_30000_240000_1.json'
         ga.load_from_json(filename)
@@ -134,6 +163,7 @@ class TestGraphAlgo(unittest.TestCase):
         with self.elapsed_timer() as elapsed:
             star = elapsed()
             l=ga.shortest_path(0,2)
+            print(l[1])
             end = elapsed()
             res=end - star
             try:
@@ -147,6 +177,8 @@ class TestGraphAlgo(unittest.TestCase):
                     f.write(f"\ngraph:{filename},connected_component:{res}\n")
                     star = elapsed()
                     l=ga.connected_components()
+                    print(l)
+
                     end = elapsed()
                     res = end - star
 
@@ -155,6 +187,11 @@ class TestGraphAlgo(unittest.TestCase):
                 print(e)
 
     def test_algo_time_nx(self):
+        """
+        this test check the run time of connected_components and shortest path
+        in networkx
+        :return:None
+        """
         ga1 = GraphAlgo.GraphAlgo()
         filename = '../data/G_30000_240000_1.json'
         ga1.load_from_json(filename)
@@ -171,7 +208,7 @@ class TestGraphAlgo(unittest.TestCase):
                     f.write(f"\ngraph:{filename},shortest_path:{res}\n{l}")
                     star = elapsed()
                     # print(list(nx.strongly_connected_components(ga)))
-                    print(nx.kosaraju_strongly_connected_components(ga))
+                    print(list(nx.kosaraju_strongly_connected_components(ga)))
 
                     end = elapsed()
                     res = end - star
@@ -181,3 +218,25 @@ class TestGraphAlgo(unittest.TestCase):
             except IOError as e:
                 print(e)
 
+    def test_correctness(self):
+        """
+        This test check the correctness of shortest path and connected_component
+        by compar it to the results from networkx on the same graph.
+        :return:None
+        """
+        ga = GraphAlgo.GraphAlgo()
+        filename = '../data/G_30000_240000_1.json'
+        ga.load_from_json(filename)
+        ganx = self.graph_nx(ga.get_graph())
+
+        l = ga.shortest_path(0, 2)
+
+        l2 = nx.single_source_dijkstra(ganx, 0, 2)
+        self.assertEqual(l,l2)
+        l=ga.connected_components()
+
+        l2=list(nx.strongly_connected_components(ganx))
+
+        for i in range(len(l)):
+            l[i].sort()
+            self.assertTrue(set(l[i]) in l2)

@@ -20,6 +20,18 @@ import numpy as np
 
 
 class GraphAlgo(GraphAlgoInterface):
+    """
+
+    This class implements the GraphAlgoInterface interface including:
+    1. init(graph);
+    2. connected_components(); - the connected_components of a graph
+    3. connected_component(id1) -the connected_component that id1 belong to in the graph
+    4. shortest_path( src,  dest);using Dijkstra algorithm;
+    5. save_to_json(file); - JSON file
+    6. load_from_json(file); - JSON file
+    7. plot_graph()- display of the graph
+
+    """
 
     def __init__(self, g: GraphInterface = DiGraph()) -> None:
         self.g = g
@@ -360,34 +372,59 @@ class GraphAlgo(GraphAlgoInterface):
         Notes:
         If the graph is None the function should return an empty list []
         """
+        # if self.g is None:
+        #     return []
+        # visited = {}
+        # visited2 = {}
+        # for i in self.g.get_all_v().keys():
+        #     visited[i] = False
+        #     visited2[i] = False
+        # stack = []
+        # cc = []
+        # ans = []
+        #
+        # for i in self.g.get_all_v().keys():
+        #     i = self.g.getnode(i)
+        #     if not visited[i.getkey()]:
+        #         self.dfs(i, stack, visited, visited2)
+        #
+        # for i in self.g.get_all_v().keys():
+        #     visited[i] = False
+        # self.transpose()
+        # while stack:
+        #     n = stack.pop()
+        #     if not visited[n]:
+        #         self.scc2(self.g.getnode(n), cc, visited,visited2)
+        #         if cc not in ans:
+        #             ans.insert(0,cc.copy())
+        #         cc.clear()
+        # self.transpose()
+        # return ans
         if self.g is None:
-            return []
+             return []
         visited = {}
-        visited2 = {}
-        for i in self.g.get_all_v().keys():
-            visited[i] = False
-            visited2[i] = False
-        stack = []
+        # visited2 = {}
+        # for i in self.g.get_all_v().keys():
+        #     visited[i] = False
+        #     visited2[i] = False
+        # stack = []
         cc = []
         ans = []
 
         for i in self.g.get_all_v().keys():
-            i = self.g.getnode(i)
-            if not visited[i.getkey()]:
-                self.dfs(i, stack, visited, visited2)
-
-        for i in self.g.get_all_v().keys():
             visited[i] = False
-        self.transpose()
-        while stack:
-            n = stack.pop()
-            if not visited[n]:
-                self.scc(self.g.getnode(n), cc, visited)
-                if cc not in ans:
-                    ans.append(cc.copy())
+        for i in self.g.get_all_v().keys():
+            if not visited[i]:
+                cc=self.connected_component(i)
+                for i in cc:
+                    visited[i]=True
+                ans.append(cc.copy())
                 cc.clear()
-        self.transpose()
         return ans
+
+
+
+
 
     def plot_graph(self) -> None:
         """
