@@ -8,8 +8,9 @@ In this assignment we will thoroughly learn the basics of object-oriented progra
 we will deal with weighted and directed graphs, but this time in Python (compared to previous assignments we wrote in JAVA).
 
 We will first describe the structure of our project:
-### first part 
-* the DiGraph class is implemented using GraphInterface
+first part - the DiGraph class is implemented using GraphInterface
+Second part - GraphAlgo inheritance from the abstract class GraphInterface
+third part - Checking and comparing running times.
 
 We will now detail some of the main functions
 ### DiGraph
