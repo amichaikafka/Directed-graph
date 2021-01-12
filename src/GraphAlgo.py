@@ -4,7 +4,9 @@ import random
 import json
 import networkx as nx
 import pylab
-
+import time
+from contextlib import contextmanager
+from timeit import default_timer
 from src.node_data import node_data
 from src.GraphInterface import GraphInterface
 from src.GraphAlgoInterface import GraphAlgoInterface
@@ -75,25 +77,28 @@ class GraphAlgo(GraphAlgoInterface):
     def Dijkstra(self, src: node_data, dest: node_data) -> dict:
         p = {}
         unvisit = []
-        for i in self.g.get_all_v().values():
-            unvisit.append(i)
+        # for i in self.g.get_all_v().values():
+        #     unvisit.append(i)
+        unvisit.append(src)
         src.setweight(0)
         heapify(unvisit)
 
         while len(unvisit) > 0:
             n = heappop(unvisit)
             n.settag(1)
-            if n.__eq__(dest):
+            if n == dest:
                 return p
             for i, j in self.g.all_out_edges_of_node(n.getkey()).items():
                 nei = self.g.getnode(i)
 
                 if nei.gettag() == 0:
                     w = n.getweight() + j
+                    # if not(nei in unvisit):
+                    #     heappush(unvisit, nei)
                     if w < nei.getweight():
                         nei.setweight(w)
                         p[nei.getkey()] = n
-                        heapify(unvisit)
+                        heappush(unvisit, nei)
 
         return p
 
@@ -102,12 +107,21 @@ class GraphAlgo(GraphAlgoInterface):
             i.settag(0)
             i.setweight(math.inf)
 
+    @contextmanager
+    def elapsed_timer(self):
+        start = default_timer()
+        elapser = lambda: default_timer() - start
+        yield lambda: elapser()
+        end = default_timer()
+        elapser = lambda: end - start
+
     def shortest_path(self, id1: int, id2: int) -> (float, list):
         path = []
         if id1 in self.g.get_all_v() and id2 in self.g.get_all_v():
             self.initgraph()
             src = self.g.getnode(id1)
             dest = self.g.getnode(id2)
+
             p = self.Dijkstra(src, dest)
 
             if id2 in p.keys():
@@ -120,7 +134,7 @@ class GraphAlgo(GraphAlgoInterface):
                 return (dest.getweight(), path)
         return (float('inf'), path)
 
-    def BFS(self, src: int, l: list, visited: dict) -> None:
+    def BFS(self, src: int, l: list, visited: dict,visited2: dict) -> None:
         q = []
         l.append(src)
         q.append(src)
@@ -133,22 +147,102 @@ class GraphAlgo(GraphAlgoInterface):
                     q.append(dest)
                     l.append(dest)
 
-
-    def dfs(self, n: node_data, stack: list, visited: dict) -> None:
+    def dfs(self, n: node_data, stack: list, visited: dict,visited2: dict) -> None:
         visited[n.getkey()] = True
-        for i in self.g.all_out_edges_of_node(n.getkey()).keys():
-            nei = self.g.getnode(i)
-            if not visited[nei.getkey()]:
-                self.dfs(n=nei, stack=stack, visited=visited)
-        stack.append(n)
+        discver={}
+        discver[n.getkey()]=0
+        t=0
+        lst=[]
+        lst.append(n.getkey())
+
+        while lst:
+            i=lst[-1]
+
+            if i not in discver:
+                t+=1
+                discver[i]=t
+            flag=True
+
+            for neib in self.g.all_out_edges_of_node(i).keys():
+                if neib not in discver:
+                    lst.append(neib)
+                    flag=False
+                    break
+            if flag:
+                visited[i] = True
+                visited2[i] = True
+                stack.append(i)
+                lst.pop()
 
     def scc(self, n: node_data, cc: list, visited: dict) -> None:
-        visited[n.getkey()] = True
-        cc.append(n.getkey())
-        for i in self.g.all_out_edges_of_node(n.getkey()).keys():
-            nei = self.g.getnode(i)
-            if not visited[nei.getkey()]:
-                self.scc(n=nei, cc=cc, visited=visited)
+        # visited[n.getkey()] = True
+        # cc.append(n.getkey())
+        # for i in self.g.all_out_edges_of_node(n.getkey()).keys():
+        #     nei = self.g.getnode(i)
+        #     if not visited[nei.getkey()]:
+        #         self.scc(n=nei, cc=cc, visited=visited)
+
+        discver = {}
+        discver[n.getkey()] = 0
+        t = 0
+        lst = []
+        lst.append(n.getkey())
+        while lst:
+            i = lst[-1]
+            # while visited[i]:
+            #     lst.pop()
+            #     i=lst[-1]
+            if i not in discver:
+                t += 1
+                discver[i] = t
+            flag = True
+            for neib in self.g.all_out_edges_of_node(i).keys():
+                if neib not in discver:
+                    if visited[neib]:
+                        continue
+                    lst.append(neib)
+                    flag = False
+                    break
+            if flag:
+                visited[i] = True
+                cc.append(i)
+                lst.pop()
+
+    def scc2(self, n: node_data, cc: list, visited: dict,visited2: dict={}) -> None:
+        # visited[n.getkey()] = True
+        # cc.append(n.getkey())
+        # for i in self.g.all_out_edges_of_node(n.getkey()).keys():
+        #     nei = self.g.getnode(i)
+        #     if not visited[nei.getkey()]:
+        #         self.scc(n=nei, cc=cc, visited=visited)
+
+        discver = {}
+        discver[n.getkey()] = 0
+        t = 0
+        lst = []
+        lst.append(n.getkey())
+        while lst:
+            i = lst[-1]
+            # while visited[i]:
+            #     lst.pop()
+            #     i=lst[-1]
+            if i not in discver:
+                t += 1
+                discver[i] = t
+            flag = True
+            for neib in self.g.all_out_edges_of_node(i).keys():
+                if not visited2[neib]:
+                    continue
+                if neib not in discver:
+                    if visited[neib]:
+                        continue
+                    lst.append(neib)
+                    flag = False
+                    break
+            if flag:
+                visited[i] = True
+                cc.append(i)
+                lst.pop()
 
     def transpose(self) -> None:
         graph = DiGraph()
@@ -164,55 +258,87 @@ class GraphAlgo(GraphAlgoInterface):
         self.g = graph
 
     def connected_component(self, id1: int) -> list:
-        # visited = {}
-        # for i in self.g.get_all_v().keys():
-        #     visited[i] = False
-        # stack = []
-        # cc = []
-        # idnode = self.g.getnode(id1)
+        visited = {}
+        visited2={}
+        for i in self.g.get_all_v().keys():
+            visited[i] = False
+            visited2[i] = False
+
+        stack = []
+        cc = []
+        idnode = self.g.getnode(id1)
         # for i in self.g.get_all_v().keys():
         #     i = self.g.getnode(i)
         #     if not visited[i.getkey()]:
-        #         self.dfs(i, stack, visited)
-        # # self.dfs(idnode, stack, visited)
+        self.dfs(idnode, stack, visited,visited2)
+        # self.dfs(idnode, stack, visited)
+        for i in self.g.get_all_v().keys():
+            visited[i] = False
+        self.transpose()
+        while stack:
+            n = stack.pop()
+            if not visited[n]:
+                self.scc2(self.g.getnode(n), cc, visited,visited2)
+                if id1 in cc:
+                    self.transpose()
+                    return cc
+                cc.clear()
+        # visited = {}
+        #
+        #
+        #
+        # for i in self.g.get_all_v().keys():
+        #     visited[i] = False
+        # nei = []
+        # ccstart = []
+        # ccend = []
+        # ans = []
+        # self.BFS(src=id1, l=nei, visited=visited)
+        # ccstart = nei.copy()
+        # nei.clear()
+        #
         # for i in self.g.get_all_v().keys():
         #     visited[i] = False
         # self.transpose()
-        # while stack:
-        #     n = stack.pop()
-        #     self.scc(n, cc, visited)
-        #     if id1 in cc:
-        #         self.transpose()
-        #         return cc
-        #     cc.clear()
-        visited = {}
-
-        for i in self.g.get_all_v().keys():
-            visited[i] = False
-        nei = []
-        ccstart = []
-        ccend = []
-        ans = []
-        self.BFS(src=id1, l=nei, visited=visited)
-        ccstart = nei.copy()
-        nei.clear()
-
-        for i in self.g.get_all_v().keys():
-            visited[i] = False
-        self.transpose()
-        self.BFS(src=id1, l=nei, visited=visited)
-        ccend = nei.copy()
-        nei.clear()
-        ccstart.sort()
-
-        for i in ccstart:
-            if i in ccend:
-                self.g.getnode(i).settag(1)
-                ans.append(i)
-        self.transpose()
-        return ans
+        # self.BFS(src=id1, l=nei, visited=visited)
+        # ccend = nei.copy()
+        # nei.clear()
+        # ccstart.sort()
+        #
+        # for i in ccstart:
+        #     if i in ccend:
+        #         self.g.getnode(i).settag(1)
+        #         ans.append(i)
+        # self.transpose()
+        # return ans
 
     def connected_components(self) -> List[list]:
+        visited = {}
+        visited2 = {}
+        for i in self.g.get_all_v().keys():
+            visited[i] = False
+            visited2[i] = False
+        stack = []
+        cc = []
+        ans=[]
+
+        for i in self.g.get_all_v().keys():
+            i = self.g.getnode(i)
+            if not visited[i.getkey()]:
+                self.dfs(i, stack, visited,visited2)
+        # self.dfs(idnode, stack, visited)
+        for i in self.g.get_all_v().keys():
+            visited[i] = False
+        self.transpose()
+        while stack:
+            n = stack.pop()
+            if not visited[n]:
+                self.scc(self.g.getnode(n), cc, visited)
+                if cc not in ans:
+                   ans.append(cc.copy())
+                cc.clear()
+        self.transpose()
+        return ans
         # stack = []
         # cc = []
         # ans = []
@@ -236,23 +362,26 @@ class GraphAlgo(GraphAlgoInterface):
         #     cc.clear()
         # self.transpose()
         # return ans
-        self.initgraph()
-        stack = []
-        ccstart = []
-        cc = []
-        ans = []
-        visited = {}
-        for i in self.g.get_all_v().keys():
-            visited[i] = False
-        for node in self.g.get_all_v().keys():
-            # print(node)
-            if not visited[node]:
-                cc=self.connected_component(node)
-                for v in cc:
-                    visited[v]=True
-                ans.append(cc)
-                # print(node)
-        return ans
+        # self.initgraph()
+        # stack = []
+        # ccstart = []
+        # cc = []
+        # ans = []
+        # visited = {}
+        # for i in self.g.get_all_v().keys():
+        #     visited[i] = False
+        # for node in self.g.get_all_v().keys():
+        #     # print(node)
+        #     if not visited[node]:
+        #         cc = self.connected_component(node)
+        #         # print(node)
+        #         # print(cc)
+        #         for v in cc:
+        #             visited[v] = True
+        #         ans.append(cc.copy())
+        #         cc.clear()
+        #         # print(node)
+        # return ans
 
     def plot_graph(self) -> None:
         for i in self.g.get_all_v().values():
@@ -266,7 +395,7 @@ class GraphAlgo(GraphAlgoInterface):
             x, y, z = i.getlocation()
             plt.plot(x, y, markersize=10, marker='.', color='blue')
             plt.text(x, y, str(i.getkey()), color="red", fontsize=12)
-            for e,wi in self.g.all_out_edges_of_node(i.getkey()).items():
+            for e, wi in self.g.all_out_edges_of_node(i.getkey()).items():
                 n = self.g.getnode(e)
                 if n.getlocation() is None:
                     v = random.uniform(0.0, 10000)
@@ -276,6 +405,6 @@ class GraphAlgo(GraphAlgoInterface):
 
                 v, w, z = n.getlocation()
                 plt.annotate("", xy=(x, y), xytext=(v, w), arrowprops=dict(arrowstyle="<-"))
-                plt.text((x+v)/2, (y+w)/2, str(wi), color="purple", fontsize=10)
+                # plt.text((x+v)/2, (y+w)/2, str(wi), color="purple", fontsize=10)
 
         plt.show()

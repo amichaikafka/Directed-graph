@@ -25,8 +25,8 @@ def check():
     [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]]
     """
     check0()
-    # check1()
-    # check2()
+    check1()
+    check2()
     # check3()
 
 
@@ -54,7 +54,7 @@ def check0():
     print(g_algo.connected_components())
     g_algo.save_to_json("g.json")
 
-    print(g_algo.connected_component(0))
+    print(g_algo.connected_component(3))
     print(g_algo.g.e_size())
 
     g_algo.plot_graph()
@@ -110,26 +110,27 @@ def check2():
 
 def check3():
     g_algo = GraphAlgo()
-    # file = '../data/G_10_80_0.json'
-    # g_algo.load_from_json(file)
-    # g_algo.plot_graph()
-    # file = '../data/G_100_800_0.json'
-    # g_algo.load_from_json(file)
-    # g_algo.plot_graph()
-    file = '../data/G_1000_8000_0.json'
-    # g_algo.load_from_json(file)
-    # g_algo.plot_graph()
-    # file = '../data/G_10000_80000_0.json'
-    # g_algo.load_from_json(file)
-    # g_algo.plot_graph()
-    # file = '../data/G_20000_160000_0.json'
-    # g_algo.load_from_json(file)
-    # g_algo.plot_graph()
-    # file = '../data/G_30000_240000_0.json'
+    file = '../data/G_10_80_1.json'
     g_algo.load_from_json(file)
-    g_algo.g.remove_node(23)
-    g_algo.g.add_node(23)
-    print(g_algo.connected_components())
+    g_algo.plot_graph()
+    file = '../data/G_100_800_1.json'
+    g_algo.load_from_json(file)
+    g_algo.plot_graph()
+    file = '../data/G_1000_8000_1.json'
+    g_algo.load_from_json(file)
+    g_algo.plot_graph()
+    # file = '../data/G_10000_80000_1.json'
+    # g_algo.load_from_json(file)
+    # g_algo.plot_graph()
+    # file = '../data/G_20000_160000_1.json'
+    # g_algo.load_from_json(file)
+    # g_algo.plot_graph()
+    # file = '../data/G_30000_240000_1.json'
+    # g_algo.load_from_json(file)
+    # g_algo.g.remove_node(23)
+    # g_algo.g.add_node(23)
+    # print(g_algo.connected_components())
+    # g_algo.plot_graph()
 
     # g_algo.plot_graph()
 
