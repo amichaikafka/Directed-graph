@@ -45,6 +45,8 @@ def check0():
     g.add_edge(1, 3, 1.9)
     g.remove_edge(1, 3)
     g.add_edge(1, 3, 10)
+    g.remove_edge(0,1)
+    g.remove_edge(1, 0)
     print(g)  # prints the __repr__ (func output)
     print(g.get_all_v())  # prints a dict with all the graph's vertices.
     print(g.all_in_edges_of_node(1))

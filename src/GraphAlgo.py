@@ -92,7 +92,7 @@ class GraphAlgo(GraphAlgoInterface):
                     if i.getlocation() is None:
                         nodes.append({"id": i.getkey()})
                     else:
-                        nodes.append({"id": i.getkey(), "pos": str(i.getlocation())})
+                        nodes.append({"id": i.getkey(), "pos": str(str(i.getlocation()[0])+","+str(i.getlocation()[1])+","+str(i.getlocation()[2]))})
                     for v, k in self.g.all_out_edges_of_node(i.getkey()).items():
                         edges.append({"src": i.getkey(), "dest": v, "w": k})
                 j["Nodes"] = nodes
@@ -209,7 +209,7 @@ class GraphAlgo(GraphAlgoInterface):
         :param n: the node that start this scan
         :param stack: contain the node of this scan according to finishing time for each node
         :param visited: mark each node if visited to make sure we don't repeat on the same node
-        :param visited2:only for connected_component mark each node that seen in the scan
+        :param visited2: mark each node that seen in the scan
         to avoid mistake in the scan after transpose the graph
         :return:None
         """
@@ -395,6 +395,7 @@ class GraphAlgo(GraphAlgoInterface):
         #     n = stack.pop()
         #     if not visited[n]:
         #         self.scc2(self.g.getnode(n), cc, visited,visited2)
+        #         print(cc)
         #         if cc not in ans:
         #             ans.insert(0,cc.copy())
         #         cc.clear()
@@ -403,11 +404,7 @@ class GraphAlgo(GraphAlgoInterface):
         if self.g is None:
              return []
         visited = {}
-        # visited2 = {}
-        # for i in self.g.get_all_v().keys():
-        #     visited[i] = False
-        #     visited2[i] = False
-        # stack = []
+
         cc = []
         ans = []
 
@@ -416,8 +413,8 @@ class GraphAlgo(GraphAlgoInterface):
         for i in self.g.get_all_v().keys():
             if not visited[i]:
                 cc=self.connected_component(i)
-                for i in cc:
-                    visited[i]=True
+                for n in cc:
+                    visited[n]=True
                 ans.append(cc.copy())
                 cc.clear()
         return ans

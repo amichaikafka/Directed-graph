@@ -9,6 +9,8 @@ from contextlib import contextmanager
 from timeit import default_timer
 import networkx as nx
 import math
+import matplotlib.pyplot as plt
+import numpy as np
 
 from src import *
 
@@ -90,8 +92,9 @@ class TestGraphAlgo(unittest.TestCase):
         """
         g = self.create_graph()
         ga = GraphAlgo.GraphAlgo(g)
-        l = [3,1,2,0]
+        l = [0,1,2,3]
         lst = ga.connected_component(0)
+        lst.sort()
         self.assertEqual(lst, l)
         l = []
         lst = ga.connected_component(99)
@@ -104,9 +107,13 @@ class TestGraphAlgo(unittest.TestCase):
         """
         g = self.create_graph()
         ga = GraphAlgo.GraphAlgo(g)
-        l = [[3, 1, 2, 0], [6], [4], [9, 7, 8], [10], [5]]
+        l = [[0,1,2,3], [6], [4], [7,8,9], [10], [5]]
         lst = ga.connected_components()
-        self.assertEqual(lst, l)
+        for i in lst:
+            i.sort()
+            self.assertTrue(i in l)
+
+
 
     def test_shortest_path(self):
         """
@@ -177,7 +184,7 @@ class TestGraphAlgo(unittest.TestCase):
                     f.write(f"\ngraph:{filename},connected_component:{res}\n")
                     star = elapsed()
                     l=ga.connected_components()
-                    print(l)
+
 
                     end = elapsed()
                     res = end - star
@@ -193,7 +200,7 @@ class TestGraphAlgo(unittest.TestCase):
         :return:None
         """
         ga1 = GraphAlgo.GraphAlgo()
-        filename = '../data/G_30000_240000_1.json'
+        filename = '../data/G_100_800_1.json'
         ga1.load_from_json(filename)
         ga=self.graph_nx(ga1.get_graph())
 
@@ -225,7 +232,7 @@ class TestGraphAlgo(unittest.TestCase):
         :return:None
         """
         ga = GraphAlgo.GraphAlgo()
-        filename = '../data/G_30000_240000_1.json'
+        filename = '../data/G_20000_160000_1.json'
         ga.load_from_json(filename)
         ganx = self.graph_nx(ga.get_graph())
 
@@ -240,3 +247,32 @@ class TestGraphAlgo(unittest.TestCase):
         for i in range(len(l)):
             l[i].sort()
             self.assertTrue(set(l[i]) in l2)
+    def test_myplot(self):
+        labels = ['|V|=10 |E|=80', '|V|=100 |E|=800', '|V|=1000 |E|=8000', '|V|=10000 |E|=80000', '|V|=20000 |E|=160000','|V|=30000 |E|=24000']
+        networkx = [0.00018209999999996285, 0.0007703000000000015, 0.02424729999999986, 0.4630350999999999,1.8605402,4.058448499999999]
+        python = [0.00013769999999990734, 0.0013769000000000142,0.026254600000000017, 0.3735894000000002, 0.8037356,1.5485729]
+        python = [0.0002621999999999902, 0.0015903999999999918, 0.04709249999999998, 1.0833412999999998, 5.090948099999999,
+                  13.6692781]
+        java = [0.001, 0.003,0.019, 0.237, 0.52,0.98]
+        java = [0.001, 0.004, 0.039, 0.657, 2.958, 8.057]
+
+        x = np.arange(len(labels))  # the label locations
+        width = 0.25  # the width of the bars
+
+        fig, ax = plt.subplots()
+        rects1 = ax.bar(x - width, networkx, width, label='networkx')
+        rects2 = ax.bar(x, python, width, label='python')
+        rects3 = ax.bar(x + width, java, width, label='java')
+
+        # Add some text for labels, title and custom x-axis tick labels, etc.
+        ax.set_ylabel('seconds')
+        ax.set_title('connected_components')
+        ax.set_xticks(x)
+        ax.set_xticklabels(labels)
+        ax.legend()
+
+
+
+        fig.tight_layout()
+
+        plt.show()
