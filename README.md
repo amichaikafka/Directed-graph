@@ -95,7 +95,7 @@ from 10 vertex and 80 edges up to 30000 vertex and 240000 edges.
         :return:None
         """
         ga = GraphAlgo.GraphAlgo()
-        filename = '../data/G_20000_160000_1.json'
+        filename = '../data/G_30000_240000_1.json'
         ga.load_from_json(filename)
         ganx = self.graph_nx(ga.get_graph())
 
