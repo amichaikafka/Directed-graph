@@ -15,7 +15,7 @@ we will deal with weighted and directed graphs, but this time in Python (compare
 
 ## Classes
 ### node_data
-This class implements node_data interface represents the set of operations applicable on a
+This class  represents the set of operations applicable on a
 node (vertex) in a (directional) weighted graph.
 
 ### DiGraph
