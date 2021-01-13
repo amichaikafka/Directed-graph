@@ -433,8 +433,8 @@ class GraphAlgo(GraphAlgoInterface):
         for i in self.g.get_all_v().values():
             x = y = 0
             if i.getlocation() is None:
-                x = random.uniform(0.0, 10000)
-                y = random.uniform(0.0, 10000)
+                x = random.uniform(0.0, 100)
+                y = random.uniform(0.0, 100)
                 pos = (x, y, 0)
                 i.setlocation(pos)
 
@@ -444,8 +444,8 @@ class GraphAlgo(GraphAlgoInterface):
             for e, wi in self.g.all_out_edges_of_node(i.getkey()).items():
                 n = self.g.getnode(e)
                 if n.getlocation() is None:
-                    v = random.uniform(0.0, 10000)
-                    w = random.uniform(0.0, 10000)
+                    v = random.uniform(0.0, 100)
+                    w = random.uniform(0.0, 100)
                     pos = (v, w, 0)
                     n.setlocation(pos)
 

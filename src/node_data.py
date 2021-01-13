@@ -1,4 +1,3 @@
-
 import math
 
 
@@ -14,7 +13,6 @@ class node_data:
         self.weight = math.inf
         self.info = "f"
         self.pos = p
-
 
     def __str__(self) -> str:
         return f"id:{self.id},pos:{self.pos}"
@@ -34,33 +32,68 @@ class node_data:
         return self.id
 
     def getkey(self) -> int:
+        """
+        Returns the key (id) associated with this node.
+        :return:key
+        """
         return self.id
 
     def gettag(self) -> int:
+        """
+        Temporal data (aka color: e,g, white, gray, black) which can be used be algorithms
+        :return:tag
+        """
         return self.tag
 
     def getweight(self) -> float:
+        """
+        Returns the weight associated with this node.
+        :return:weight
+        """
         return self.weight
 
     def getinfo(self) -> str:
+        """
+         Returns the remark (meta data) associated with this node.
+        :return:info
+        """
         return self.info
 
     def settag(self, tag: int) -> None:
+        """
+        Allows setting the "tag" value for temporal marking an node - common practice for marking by algorithms.
+        :param tag:the new value of the tag
+        :return:None
+        """
         self.tag = tag
 
     def setweight(self, w: float) -> None:
+        """
+        Allows changing this node's weight.
+        :param w:- the new weight
+        :return:None
+        """
         self.weight = w
 
     def setinfo(self, info: str) -> None:
+        """
+        Allows changing the remark (meta data) associated with this node.
+        :param info:
+        :return: None
+        """
         self.info = info
 
     def getlocation(self) -> tuple:
+        """
+        Returns the location of this node
+        :return: location
+        """
         return self.pos
 
     def setlocation(self, pos) -> None:
+        """
+         Allows changing this node's location.
+        :param pos: new new location  (position) of this node.
+        :return: None
+        """
         self.pos = pos
-
-
-
-
-

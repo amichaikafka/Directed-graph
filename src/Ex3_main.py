@@ -27,7 +27,7 @@ def check():
     check0()
     check1()
     check2()
-    # check3()
+
 
 
 def check0():
@@ -110,31 +110,9 @@ def check2():
     g_algo.plot_graph()
 
 
-def check3():
-    g_algo = GraphAlgo()
-    file = '../data/G_10_80_1.json'
-    g_algo.load_from_json(file)
-    g_algo.plot_graph()
-    file = '../data/G_100_800_1.json'
-    g_algo.load_from_json(file)
-    g_algo.plot_graph()
-    file = '../data/G_1000_8000_1.json'
-    g_algo.load_from_json(file)
-    g_algo.plot_graph()
-    # file = '../data/G_10000_80000_1.json'
-    # g_algo.load_from_json(file)
-    # g_algo.plot_graph()
-    # file = '../data/G_20000_160000_1.json'
-    # g_algo.load_from_json(file)
-    # g_algo.plot_graph()
-    # file = '../data/G_30000_240000_1.json'
-    # g_algo.load_from_json(file)
-    # g_algo.g.remove_node(23)
-    # g_algo.g.add_node(23)
-    # print(g_algo.connected_components())
-    # g_algo.plot_graph()
 
-    # g_algo.plot_graph()
+
+
 
 
 if __name__ == '__main__':
