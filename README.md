@@ -46,16 +46,16 @@ Implementaion of non recursive dfs algorithm scan the graph for each node
 enter to a list to mark the discover time, when a node that all of his neighbors
 were discoverd enter him to a stack.
 
-### scc 
-second dfs scan only here we start from the node that has the latest finishing time
-according to the stack we used in the dfs algorithm and for each node that all of his neighbors
-were discovered enter him to a list (cc) as connected_component.
+### connected_component 
+ finds the Strongly Connected Component(SCC) that node id1 is a part of. (If the graph is None or id1 is not in the graph, the function should return an empty list []).
 
-### scc2
-this function uesd only for connected_component for particular node
-second dfs scan only here we start from the node that has the latest finishing time
-according to the stack we used in the dfs algorithm and for each node that all of his neighbors
-were discovered enter him to a list (cc) as connected_component.
+### connected_components
+finds all the Strongly Connected Component(SCC) in the graph. (If the graph is None the function should return an empty list []).
+
+### shortest_path
+returns the the shortest path between src to dest using Dijkstra algorithm- as an ordered List of nodes:
+src-- n1--n2--...dest
+if no such path -- returns null;
 
 
 
