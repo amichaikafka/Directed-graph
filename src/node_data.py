@@ -13,12 +13,14 @@ class node_data:
         self.weight = math.inf
         self.info = "f"
         self.pos = p
+        self.edge_out = 0
+        self.edge_in = 0
 
     def __str__(self) -> str:
-        return f"id:{self.id},pos:{self.pos}"
+        return f"{self.id}:|edges out| {self.edge_out} |edges in| {self.edge_in}"
 
     def __repr__(self) -> str:
-        return f"id:{self.id},pos:{self.pos}"
+        return f"{self.id}:|edges out| {self.edge_out} |edges in| {self.edge_in}""
 
     def __eq__(self, o: object) -> bool:
         if not (isinstance(o, node_data)):
