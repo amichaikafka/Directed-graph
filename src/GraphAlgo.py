@@ -362,6 +362,7 @@ class GraphAlgo(GraphAlgoInterface):
                 self.scc2(self.g.getnode(n), cc, visited, visited2)
                 if id1 in cc:
                     self.transpose()
+                    cc.sort()
                     return cc
                 cc.clear()
 
