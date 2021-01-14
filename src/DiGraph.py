@@ -42,31 +42,17 @@ class DiGraph(GraphInterface):
 
     def __str__(self) -> str:
         """
-                       This method returns the string representation of the object.
-                       """
-        s = "Edeges{"
-        for k, v in self.Edges.items():
-            for i, j in v.items():
-                s += f"[src:{k},w:{j},dest:{i}]"
-        s += "} Nodes{"
-        for i in self.Nodes.values():
-            s += f"[{i}]"
-        s += "}"
-        return s
+        This method returns the string representation of the object.
+        """
+
+        return f"Graph: | V |= {self.v_size()}, | E |= {self.e_size()}"
+       
 
     def __repr__(self) -> str:
         """
          returns the object representation in string format.
         """
-        s = "Edeges{"
-        for k, v in self.Edges.items():
-            for i, j in v:
-                s += f"[src:{k},w:{j},dest:{i}]"
-        s += "} Nodes{"
-        for i in self.Nodes.values():
-            s += f"[{i}]"
-        s += "}"
-        return s
+        return f"Graph: |V|= {self.v_size()}, |E|= {self.e_size()}"
 
     def getnode(self, id: int) -> node_data:
         """
